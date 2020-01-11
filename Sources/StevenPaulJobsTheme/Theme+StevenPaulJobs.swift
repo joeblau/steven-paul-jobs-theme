@@ -14,6 +14,8 @@ public enum PublishError: Error {
 }
 
 public struct StevenPaulJobsHTMLFactory<Site: StevenPaulJobsWebsite>: HTMLFactory {
+    public init() {}
+    
     public func makeIndexHTML(for index: Index,
                        context: PublishingContext<Site>) throws -> HTML {
         return HTML(
