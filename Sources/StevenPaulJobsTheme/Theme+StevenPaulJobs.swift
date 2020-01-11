@@ -13,8 +13,8 @@ public enum PublishError: Error {
     case notImplemented
 }
 
-private struct StevenPaulJobsHTMLFactory<Site: StevenPaulJobsWebsite>: HTMLFactory {
-    func makeIndexHTML(for index: Index,
+public struct StevenPaulJobsHTMLFactory<Site: StevenPaulJobsWebsite>: HTMLFactory {
+    public func makeIndexHTML(for index: Index,
                        context: PublishingContext<Site>) throws -> HTML {
         return HTML(
             .lang(context.site.language),
@@ -41,17 +41,17 @@ private struct StevenPaulJobsHTMLFactory<Site: StevenPaulJobsWebsite>: HTMLFacto
         )
     }
     
-    func makeSectionHTML(for section: Section<Site>,
+    public func makeSectionHTML(for section: Section<Site>,
                          context: PublishingContext<Site>) throws -> HTML {
         return HTML()
     }
     
-    func makeItemHTML(for item: Item<Site>,
+    public func makeItemHTML(for item: Item<Site>,
                       context: PublishingContext<Site>) throws -> HTML {
         return HTML()
     }
     
-    func makePageHTML(for page: Page,
+    public func makePageHTML(for page: Page,
                       context: PublishingContext<Site>) throws -> HTML {
     return HTML(
             .lang(context.site.language),
@@ -80,12 +80,12 @@ private struct StevenPaulJobsHTMLFactory<Site: StevenPaulJobsWebsite>: HTMLFacto
         )
     }
     
-    func makeTagListHTML(for page: TagListPage,
+    public func makeTagListHTML(for page: TagListPage,
                          context: PublishingContext<Site>) throws -> HTML? {
         return HTML()
     }
     
-    func makeTagDetailsHTML(for page: TagDetailsPage,
+    public func makeTagDetailsHTML(for page: TagDetailsPage,
                             context: PublishingContext<Site>) throws -> HTML? {
         return HTML()
     }
