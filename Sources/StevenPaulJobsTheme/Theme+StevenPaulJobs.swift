@@ -13,83 +13,88 @@ public enum PublishError: Error {
     case notImplemented
 }
 
-public struct StevenPaulJobsHTMLFactory<Site: StevenPaulJobsWebsite>: HTMLFactory {
-    public init() {}
-    
-    public func makeIndexHTML(for index: Index,
-                       context: PublishingContext<Site>) throws -> HTML {
-        return HTML(
-            .lang(context.site.language),
-            .head(for: index,
-                  on: context.site,
-                  titleSeparator: " | ",
-                  stylesheetPaths: ["styles.css",
-                                    "StevenPaulJobsTheme/css/news-shield-styles.css",
-                                    "StevenPaulJobsTheme/fonts/stylesheet.css"],
-                  rssFeedPath: .defaultForRSSFeed,
-                  rssFeedTitle: nil),
-            .body(
-                .hero(for: context.site),
-                .main(
-                    .why(for: context.site),
-                    .how(for: context.site),
-                    .technology(for: context.site),
-                    .features(for: context.site),
-                    .brands(for: context.site),
-                    .download(for: context.site)
-                ),
-                .footer(for: context.site)
-            )
-        )
+public extension Theme where Site: StevenPaulJobsThemable {
+    static var stevenPaultJobs: Self {
+         Theme(htmlFactory: StevenPaulJobsHTMLFactory(),
+               resourcePaths: ["style.css"])
     }
     
-    public func makeSectionHTML(for section: Section<Site>,
-                         context: PublishingContext<Site>) throws -> HTML {
-        return HTML()
-    }
-    
-    public func makeItemHTML(for item: Item<Site>,
-                      context: PublishingContext<Site>) throws -> HTML {
-        return HTML()
-    }
-    
-    public func makePageHTML(for page: Page,
-                      context: PublishingContext<Site>) throws -> HTML {
-    return HTML(
-            .lang(context.site.language),
-            .head(for: page,
-                  on: context.site,
-                  titleSeparator: " | ",
-                  stylesheetPaths: ["styles.css",
-                                    "StevenPaulJobsTheme/css/news-shield-styles.css",
-                                    "StevenPaulJobsTheme/fonts/stylesheet.css"],
-                  rssFeedPath: .defaultForRSSFeed,
-                  rssFeedTitle: nil),
-            .body(
-                
-                .header(
-                    .h1(.text(page.title)),
-                    .h3(.text(page.description))
-                    ),
-                .main(
-                    .section(
-                        .class("max-section"),
-                        page.body.node
-                    )
-                ),
-                .footer(for: context.site)
-            )
-        )
-    }
-    
-    public func makeTagListHTML(for page: TagListPage,
-                         context: PublishingContext<Site>) throws -> HTML? {
-        return HTML()
-    }
-    
-    public func makeTagDetailsHTML(for page: TagDetailsPage,
-                            context: PublishingContext<Site>) throws -> HTML? {
-        return HTML()
+    private struct StevenPaulJobsHTMLFactory: HTMLFactory {
+     func makeIndexHTML(for index: Index,
+                            context: PublishingContext<Site>) throws -> HTML {
+             return HTML(
+                 .lang(context.site.language),
+                 .head(for: index,
+                       on: context.site,
+                       titleSeparator: " | ",
+                       stylesheetPaths: ["styles.css",
+                                         "StevenPaulJobsTheme/css/news-shield-styles.css",
+                                         "StevenPaulJobsTheme/fonts/stylesheet.css"],
+                       rssFeedPath: .defaultForRSSFeed,
+                       rssFeedTitle: nil),
+                 .body(
+                     .hero(for: context.site),
+                     .main(
+                         .why(for: context.site),
+                         .how(for: context.site),
+                         .technology(for: context.site),
+                         .features(for: context.site),
+                         .brands(for: context.site),
+                         .download(for: context.site)
+                     ),
+                     .footer(for: context.site)
+                 )
+             )
+         }
+         
+         func makeSectionHTML(for section: Section<Site>,
+                              context: PublishingContext<Site>) throws -> HTML {
+             return HTML()
+         }
+         
+         func makeItemHTML(for item: Item<Site>,
+                           context: PublishingContext<Site>) throws -> HTML {
+             return HTML()
+         }
+         
+         func makePageHTML(for page: Page,
+                           context: PublishingContext<Site>) throws -> HTML {
+         return HTML(
+                 .lang(context.site.language),
+                 .head(for: page,
+                       on: context.site,
+                       titleSeparator: " | ",
+                       stylesheetPaths: ["styles.css",
+                                         "StevenPaulJobsTheme/css/news-shield-styles.css",
+                                         "StevenPaulJobsTheme/fonts/stylesheet.css"],
+                       rssFeedPath: .defaultForRSSFeed,
+                       rssFeedTitle: nil),
+                 .body(
+                     
+                     .header(
+                         .h1(.text(page.title)),
+                         .h3(.text(page.description))
+                         ),
+                     .main(
+                         .section(
+                             .class("max-section"),
+                             page.body.node
+                         )
+                     ),
+                     .footer(for: context.site)
+                 )
+             )
+         }
+         
+         func makeTagListHTML(for page: TagListPage,
+                              context: PublishingContext<Site>) throws -> HTML? {
+             return HTML()
+         }
+         
+         func makeTagDetailsHTML(for page: TagDetailsPage,
+                                 context: PublishingContext<Site>) throws -> HTML? {
+             return HTML()
+         }
     }
 }
 
@@ -100,10 +105,10 @@ private extension Node where Context == HTML.BodyContext {
     
     // MARK: Hero
     
-    static func hero<T: StevenPaulJobsWebsite>(for site: T) -> Node {
+    static func hero<T: StevenPaulJobsThemable>(for site: T) -> Node {
         return section(
             .class("hero hero-background"),
-            .h1(.text(site.name)),
+            .h1(.text(site.title)),
             .appStoreLink(for: site),
             .div(
                 .element(named: "picture", nodes: [
@@ -126,7 +131,7 @@ private extension Node where Context == HTML.BodyContext {
     
     // MARK: Why
     
-    static func why<T: StevenPaulJobsWebsite>(for site: T) -> Node {
+    static func why<T: StevenPaulJobsThemable>(for site: T) -> Node {
         return .section(
             .class("why"),
             .header(
@@ -143,7 +148,7 @@ private extension Node where Context == HTML.BodyContext {
     
     // MARK: How
     
-    static func how<T: StevenPaulJobsWebsite>(for site: T) -> Node {
+    static func how<T: StevenPaulJobsThemable>(for site: T) -> Node {
         return .element(named: "", nodes: [
             .header(
                 .h2(.text(site.how.title)),
@@ -174,7 +179,7 @@ private extension Node where Context == HTML.BodyContext {
     
     // MARK: Technology
     
-    static func technology<T: StevenPaulJobsWebsite>(for site: T) -> Node {
+    static func technology<T: StevenPaulJobsThemable>(for site: T) -> Node {
         return .element(named: "", nodes: [
             .header(
                 .h2(.text(site.technology.title)),
@@ -208,7 +213,7 @@ private extension Node where Context == HTML.BodyContext {
     
     // MARK: Features
     
-    static func features<T: StevenPaulJobsWebsite>(for site: T) -> Node {
+    static func features<T: StevenPaulJobsThemable>(for site: T) -> Node {
         return .element(named: "", nodes: [
             .header(
                 .h2(.text(site.features.title)),
@@ -241,7 +246,7 @@ private extension Node where Context == HTML.BodyContext {
     
     // MARK: Brands
     
-    static func brands<T: StevenPaulJobsWebsite>(for site: T) -> Node {
+    static func brands<T: StevenPaulJobsThemable>(for site: T) -> Node {
         return .element(named: "", nodes: [
             .header(
                 .h2(.text(site.brands.title)),
@@ -275,7 +280,7 @@ private extension Node where Context == HTML.BodyContext {
     
     // MARK: Download
     
-    static func download<T: StevenPaulJobsWebsite>(for site: T) -> Node {
+    static func download<T: StevenPaulJobsThemable>(for site: T) -> Node {
         return .element(named: "", nodes: [
             .header(
                 .h2(.text(site.download.title)),
@@ -294,7 +299,7 @@ private extension Node where Context == HTML.BodyContext {
     
     // MARK: Footer
 
-    static func footer<T: StevenPaulJobsWebsite>(for site: T) -> Node {
+    static func footer<T: StevenPaulJobsThemable>(for site: T) -> Node {
         return .footer(
             .a(.href("/"), .text("Home")),
             .text(" • "),
@@ -312,7 +317,7 @@ private extension Node where Context == HTML.BodyContext {
     
     //MARK: - Utility functions
     
-    static func appStoreLink<T: StevenPaulJobsWebsite>(for site: T) -> Node {
+    static func appStoreLink<T: StevenPaulJobsThemable>(for site: T) -> Node {
         return .a(
             .href(site.download.appStoreURL),
             .element(named: "picture", nodes: [

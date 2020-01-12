@@ -68,7 +68,7 @@ public protocol DownloadSectionable: Sectionable {
 
 // MARK: - Theme
 
-public protocol StevenPaulJobsWebsite: Website {
+public protocol StevenPaulJobsThemable: Website {
     var title: String { get set }
     var keywords: String { get set }
     var copyright: String { get set }
