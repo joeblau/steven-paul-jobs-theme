@@ -34,11 +34,11 @@ public protocol Steppable {
 
 public protocol BulletPointable {
     var symbol: String? { get set }
-    var tags: [String]? { get set }
-    var images: [String]? { get set }
+    var tags: [String] { get set }
+    var images: [String] { get set }
     var title: String { get set }
     var description: String { get set }
-    var href: String? { get set }
+    var href: String { get set }
 }
 
 public protocol CommunityResourcable {

@@ -243,8 +243,8 @@ private extension Node where Context == HTML.BodyContext {
                 .forEach(product.features) { feature in
                     .div(
                         .class("well"),
-                        .if(feature.images != nil,
-                            .forEach(feature.images!, { image in
+                        .if(!feature.images.isEmpty,
+                            .forEach(feature.images, { image in
                                 .element(named: "picture", nodes: [
                                     .selfClosedElement(named: "source", attributes: [
                                         .attribute(named: "src", value: "/img/\(image).png"),
@@ -265,9 +265,9 @@ private extension Node where Context == HTML.BodyContext {
                             ),
                             .text(" \(feature.description)")
                         ),
-                        .if(feature.tags != nil,
+                        .if(!feature.tags.isEmpty,
                             .p(
-                                .forEach(feature.tags!, { tag in
+                                .forEach(feature.tags, { tag in
                                     .element(named: "mark", nodes: [
                                         .class("span-red"),
                                         .text(tag)
@@ -275,9 +275,9 @@ private extension Node where Context == HTML.BodyContext {
                                 })
                             )
                         ),
-                        .if(feature.href != nil,
+                        .if(!feature.href.isEmpty,
                             .a(
-                                .href(feature.href!),
+                                .href(feature.href),
                                 .text("Learn More "),
                                 .span(.class("icon"), .text("􀄯"))
                             )
@@ -313,9 +313,9 @@ private extension Node where Context == HTML.BodyContext {
                             .element(named: "small", text: differentiator.title)
                         ),
                         .p(.text(differentiator.description)),
-                        .if(differentiator.href != nil,
+                        .if(!differentiator.href.isEmpty,
                             .a(
-                                .href(differentiator.href ?? ""),
+                                .href(differentiator.href),
                                 .text("Learn More "),
                                 .span(.class("icon"), .text("􀄯"))
                             )
@@ -448,11 +448,11 @@ private extension Node where Context == HTML.BodyContext {
             .element(named: "picture", nodes: [
                 .class("download-image"),
                 .selfClosedElement(named: "source", attributes: [
-                    .attribute(named: "srcset", value: "/StevenPaulJobsTheme/img/\(download.state.description)-mac-app-store/us-uk/white.svg"),
+                    .attribute(named: "srcset", value: "/\(download.state.description)-mac-app-store-us-uk-white.svg"),
                     .attribute(named: "media", value: "(prefers-color-scheme: dark)")
                 ]),
                 .selfClosedElement(named: "img", attributes: [
-                    .attribute(named: "src", value: "/StevenPaulJobsTheme/img/\(download.state.description)-mac-app-store/us-uk/black.svg"),
+                    .attribute(named: "src", value: "/\(download.state.description)-mac-app-store-us-uk-black.svg"),
                 ])
             ])
         )
