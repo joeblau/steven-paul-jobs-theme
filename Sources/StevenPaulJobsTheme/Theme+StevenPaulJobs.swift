@@ -15,88 +15,105 @@ public enum PublishError: Error {
 
 public extension Theme where Site: StevenPaulJobsThemable {
     static var stevenPaulJobs: Self {
-         Theme(htmlFactory: StevenPaulJobsHTMLFactory())
+        Theme(htmlFactory: StevenPaulJobsHTMLFactory(),
+              resourcePaths: [
+                "Resources/StevenPaulJobsTheme/css/steven-paul-jobs-theme-styles.css",
+                "Resources/StevenPaulJobsTheme/img/catalina-night.jpg",
+                "Resources/StevenPaulJobsTheme/img/catalina-sunny.jpg",
+                "Resources/StevenPaulJobsTheme/img/download-mac-app-store-us-uk-black.svg",
+                "Resources/StevenPaulJobsTheme/img/download-mac-app-store-us-uk-white.svg",
+                "Resources/StevenPaulJobsTheme/img/pre-order-mac-app-store-us-uk-black.svg",
+                "Resources/StevenPaulJobsTheme/img/pre-order-mac-app-store-us-uk-white.svg",
+                "Resources/StevenPaulJobsTheme/img/pre-order-mac-app-store-us-uk-white.svg",
+                "Resources/StevenPaulJobsTheme/fonts/sfsymbols-font-stylesheet.css",
+                "Resources/StevenPaulJobsTheme/fonts/SFSymbolsFallback-Regular.eot",
+                "Resources/StevenPaulJobsTheme/fonts/SFSymbolsFallback-Regular.svg",
+                "Resources/StevenPaulJobsTheme/fonts/SFSymbolsFallback-Regular.ttf",
+                "Resources/StevenPaulJobsTheme/fonts/SFSymbolsFallback-Regular.woff",
+                "Resources/StevenPaulJobsTheme/fonts/SFSymbolsFallback-Regular.woff2"
+            ]
+        )
     }
     
     private struct StevenPaulJobsHTMLFactory: HTMLFactory {
-     func makeIndexHTML(for index: Index,
-                            context: PublishingContext<Site>) throws -> HTML {
-             return HTML(
-                 .lang(context.site.language),
-                 .head(for: index,
-                       on: context.site,
-                       titleSeparator: " | ",
-                       stylesheetPaths: buildStyleSheettPaths(for: context.site),
-                       rssFeedPath: .defaultForRSSFeed,
-                       rssFeedTitle: nil),
-                 .body(
-                     .hero(for: context.site),
-                     .header(for: context.site),
-                     .main(
-                         .why(for: context.site),
-                         .how(for: context.site),
-                         .product(for: context.site),
-                         .features(for: context.site),
-                         .brands(for: context.site),
-                         .community(for: context.site),
-                         .download(for: context.site)
-                     ),
-                     .footer(for: context.site)
-                 )
-             )
-         }
-         
-         func makeSectionHTML(for section: Section<Site>,
-                              context: PublishingContext<Site>) throws -> HTML {
-             return HTML()
-         }
-         
-         func makeItemHTML(for item: Item<Site>,
+        func makeIndexHTML(for index: Index,
                            context: PublishingContext<Site>) throws -> HTML {
-             return HTML()
-         }
-         
-         func makePageHTML(for page: Page,
-                           context: PublishingContext<Site>) throws -> HTML {
-         return HTML(
-                 .lang(context.site.language),
-                 .head(for: page,
-                       on: context.site,
-                       titleSeparator: " | ",
-                       stylesheetPaths: buildStyleSheettPaths(for: context.site),
-                       rssFeedPath: .defaultForRSSFeed,
-                       rssFeedTitle: nil),
-                 .body(
-                     
-                     .header(
-                         .h1(.text(page.title)),
-                         .h3(.text(page.description))
-                         ),
-                     .main(
-                         .section(
-                             .class("max-section"),
-                             page.body.node
-                         )
-                     ),
-                     .footer(for: context.site)
-                 )
-             )
-         }
-         
-         func makeTagListHTML(for page: TagListPage,
-                              context: PublishingContext<Site>) throws -> HTML? {
-             return HTML()
-         }
-         
-         func makeTagDetailsHTML(for page: TagDetailsPage,
-                                 context: PublishingContext<Site>) throws -> HTML? {
-             return HTML()
-         }
+            return HTML(
+                .lang(context.site.language),
+                .head(for: index,
+                      on: context.site,
+                      titleSeparator: " | ",
+                      stylesheetPaths: buildStyleSheettPaths(for: context.site),
+                      rssFeedPath: .defaultForRSSFeed,
+                      rssFeedTitle: nil),
+                .body(
+                    .hero(for: context.site),
+                    .header(for: context.site),
+                    .main(
+                        .why(for: context.site),
+                        .how(for: context.site),
+                        .product(for: context.site),
+                        .features(for: context.site),
+                        .brands(for: context.site),
+                        .community(for: context.site),
+                        .download(for: context.site)
+                    ),
+                    .footer(for: context.site)
+                )
+            )
+        }
+        
+        func makeSectionHTML(for section: Section<Site>,
+                             context: PublishingContext<Site>) throws -> HTML {
+            return HTML()
+        }
+        
+        func makeItemHTML(for item: Item<Site>,
+                          context: PublishingContext<Site>) throws -> HTML {
+            return HTML()
+        }
+        
+        func makePageHTML(for page: Page,
+                          context: PublishingContext<Site>) throws -> HTML {
+            return HTML(
+                .lang(context.site.language),
+                .head(for: page,
+                      on: context.site,
+                      titleSeparator: " | ",
+                      stylesheetPaths: buildStyleSheettPaths(for: context.site),
+                      rssFeedPath: .defaultForRSSFeed,
+                      rssFeedTitle: nil),
+                .body(
+                    
+                    .header(
+                        .h1(.text(page.title)),
+                        .h3(.text(page.description))
+                    ),
+                    .main(
+                        .section(
+                            .class("max-section"),
+                            page.body.node
+                        )
+                    ),
+                    .footer(for: context.site)
+                )
+            )
+        }
+        
+        func makeTagListHTML(for page: TagListPage,
+                             context: PublishingContext<Site>) throws -> HTML? {
+            return HTML()
+        }
+        
+        func makeTagDetailsHTML(for page: TagDetailsPage,
+                                context: PublishingContext<Site>) throws -> HTML? {
+            return HTML()
+        }
         
         func buildStyleSheettPaths<T: StevenPaulJobsThemable>(for site: T) -> [Path] {
             var templateStyleSheets = [
-                Path("/StevenPaulJobsTheme/css/styles.css"),
-                Path("/StevenPaulJobsTheme/fonts/stylesheet.css")]
+                Path("/steven-paul-jobs-theme-styles.css"),
+                Path("/sfsymbols-font-stylesheet.css")]
             if let css = site.css {
                 templateStyleSheets.append(Path(css))
             }
@@ -229,16 +246,16 @@ private extension Node where Context == HTML.BodyContext {
                         .if(feature.images != nil,
                             .forEach(feature.images!, { image in
                                 .element(named: "picture", nodes: [
-                                        .selfClosedElement(named: "source", attributes: [
-                                            .attribute(named: "src", value: "/img/\(image).png"),
-                                            .attribute(named: "srcset", value: "/img/\(image)@2x.png 2x"),
-                                            .attribute(named: "media", value: "(prefers-color-scheme: dark)")
-                                        ]),
-                                        .selfClosedElement(named: "img", attributes: [
-                                            .attribute(named: "src", value: "/img/\(image).png"),
-                                            .attribute(named: "srcset", value: "/img/\(image)@2x.png 2x")
-                                        ])
+                                    .selfClosedElement(named: "source", attributes: [
+                                        .attribute(named: "src", value: "/img/\(image).png"),
+                                        .attribute(named: "srcset", value: "/img/\(image)@2x.png 2x"),
+                                        .attribute(named: "media", value: "(prefers-color-scheme: dark)")
+                                    ]),
+                                    .selfClosedElement(named: "img", attributes: [
+                                        .attribute(named: "src", value: "/img/\(image).png"),
+                                        .attribute(named: "srcset", value: "/img/\(image)@2x.png 2x")
                                     ])
+                                ])
                             })
                         ),
                         .p(
@@ -339,7 +356,7 @@ private extension Node where Context == HTML.BodyContext {
                                 .attribute(named: "srcset", value: "/img/light/source/\(source)@2x.png 2x")
                             ])
                         ])
-
+                        
                     )
                 }
             )
@@ -399,7 +416,7 @@ private extension Node where Context == HTML.BodyContext {
     }
     
     // MARK: Footer
-
+    
     static func footer<T: StevenPaulJobsThemable>(for site: T) -> Node {
         return .footer(
             .a(.href("/"), .text("Home")),
